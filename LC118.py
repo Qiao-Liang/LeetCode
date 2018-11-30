@@ -8,8 +8,8 @@ class Solution(object):
             return []
         elif numRows == 1:
             return [[1]]
-        elif numRows == 2:
-            return [[1], [1, 1]]
+        # elif numRows == 2:
+        #     return [[1], [1, 1]]
         else:
             result = [[1], [1, 1]]
             count = 2
@@ -29,4 +29,4 @@ class Solution(object):
 
 
 sol = Solution()
-print(sol.generate(5))
+print(sol.generate(2))

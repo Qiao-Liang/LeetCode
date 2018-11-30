@@ -9,13 +9,26 @@ class Solution(object):
         :rtype: bool
         """
         if nums:
-            dict = {}
+            hash = set([])
+
             for num in nums:
-                if num in dict:
+                if num in hash:
                     return True
                 else:
-                    dict[num] = ''
+                    hash.add(num)
             
             return False
         else:
             return False
+
+        # if nums:
+        #     dict = {}
+        #     for num in nums:
+        #         if num in dict:
+        #             return True
+        #         else:
+        #             dict[num] = ''
+            
+        #     return False
+        # else:
+        #     return False

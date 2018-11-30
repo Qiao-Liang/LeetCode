@@ -9,7 +9,7 @@ class Solution(object):
         end = len(nums) - 1
 
         while start <= end:
-            mid = (start + end) / 2
+            mid = (start + end) // 2
 
             if nums[mid] > target:
                 if target == nums[start]:
@@ -33,5 +33,6 @@ class Solution(object):
 
 sol = Solution()
 # nums = [1]
-nums = [7, 0, 1, 2, 4, 5, 6]
-print(sol.search(nums, 3))
+# nums = [5, 6, 7, 0, 1, 2, 4]
+nums = [3, 5, 1]
+print(sol.search(nums, 5))

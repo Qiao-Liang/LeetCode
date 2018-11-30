@@ -8,7 +8,6 @@ class Solution(object):
         s1_seq = [ord(x) - ord('a') for x in s1]
         s2_seq = [ord(x) - ord('a') for x in s2]
         len1 = len(s1)
-        len2= len(s2)
 
         s1_stat = [0] * 26
         for num in s1_seq:

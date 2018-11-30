@@ -5,6 +5,18 @@ class Solution(object):
         :type k: int
         :rtype: bool
         """
+        dup = {}
+        for idx, num in enumerate(nums):
+            if num in dup and idx - dup[num] <= k:
+                return True
+            else:
+                dup[num] = idx
+        
+        return False
+
+        '''
+        Version 1
+        '''
         # length = len(nums)
         
         # for i in range(length):
@@ -34,11 +46,10 @@ class Solution(object):
 
         # return False
 
-        dup = {}
-        for idx, num in enumerate(nums):
-            if num in dup and idx - dup[num] <= k:
-                return True
-            else:
-                dup[num] = idx
-        
-        return False
+
+sol = Solution()
+# nums = [1,2,3,1,2,3]
+# k = 2
+nums = [1,0,1,1]
+k = 1
+print(sol.containsNearbyDuplicate(nums, k))

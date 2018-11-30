@@ -7,6 +7,17 @@ class Solution(object):
         if not matrix:
             return 0
 
+        
+
+
+    def maximalSquare2(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if not matrix:
+            return 0
+
         len_matrix = len(matrix)
 
         if len_matrix == 1:

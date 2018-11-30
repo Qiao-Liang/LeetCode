@@ -5,55 +5,59 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        left = 0
-        last = len(nums) - 1
-        right = last
         nums.sort()
-        result = []
+        # left = 0
+        # right = len(nums) - 1
+        # res = []
 
-        while right - left > 2:
-            if left > 0 and right < last and nums[left] == nums[left - 1] and nums[right] == nums[right + 1]:
-                left += 1
-                right -= 1
-                continue
-            
-            inner_target = target - nums[left] - nums[right]
-            inner_left = left + 1
-            inner_right = right - 1
-            inner_sum = nums[inner_left] + nums[inner_right]
-            found = False
+        # while right > left:
+        #     temp_sum = nums[left] + nums[right]
 
-            while inner_left < inner_right:
-                if inner_left > left + 1 and inner_right < right - 1 and nums[inner_left] == nums[inner_left - 1] and nums[inner_right] == nums[inner_right + 1]:
-                    inner_left += 1
-                    inner_right -= 1
-                    continue
+        #     if temp_sum > 0:
+        #         right -= 1
+        #     elif temp_sum < 0:
+        #         left += 1
+        #     else:
+        #         temp = [nums[left], nums[right]]
 
-                inner_sum = nums[inner_left] + nums[inner_right]
+        #         temp_left = left + 1
+        #         temp_right = right - 1
 
-                if inner_sum < inner_target:
-                    inner_left += 1
-                elif inner_sum > inner_target:
-                    inner_right -= 1
-                else:
-                    found = True
-                    result.append([nums[left], nums[inner_left], nums[inner_right], nums[right]])
+        #         while temp_left < temp_right:
+        #             temp_sum2 = nums[temp_left] + nums[temp_right]
 
-                    inner_left += 1
-                    inner_right -= 1
-                
-            if found:
-                left += 1
-                right -= 1
-            else:
-                if nums[right] - nums[right - 1] < nums[left + 1] - nums[left]:
-                    right -= 1
-                else:
-                    left += 1
+        #             if temp_sum2 > 0:
+        #                 right -= 1
+                    
 
-        return result
+        # self.res = []
+
+        # def recurse(temp_nums, curr_idx, nums, target):
+        #     temp_nums.append(nums[curr_idx])
+
+        #     if len(temp_nums) == 4:
+        #         if sum(temp_nums) == target:
+        #             sorted_nums = sorted(temp_nums)
+
+        #             if sorted_nums not in self.res:
+        #                 self.res.append(sorted_nums)
+
+        #         return
+
+        #     for idx in xrange(curr_idx + 1, len(nums)):
+        #         recurse(temp_nums, idx, nums, target)
+        #         temp_nums.pop()
+
+        # for idx in xrange(0, len(nums)):
+        #     recurse([], idx, nums, target)
+
+        # return self.res
+
 
 sol = Solution()
-s = [-3,-1,0,2,4,5]
+# s = [-3,-1,0,2,4,5]
 # s = [1, 0, -1, 0, -2, 2]
-print(sol.fourSum(s, 0))
+# s = [-3,-2,-1,0,0,1,2,3]
+# s = [-5,-4,-3,-2,-1,0,0,1,2,3,4,5]
+s = [-5,5,4,-3,0,0,4,-2]
+print(sol.fourSum(s, 4))
