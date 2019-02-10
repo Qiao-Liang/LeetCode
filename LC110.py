@@ -12,23 +12,58 @@ class Solution(object):
         :rtype: bool
         """
         if root:
-            l_height = 0
-            r_height = 0
+            # def check_height(root):
+            #     if root:
+            #         l_balanced, l_height = check_height(root.left)
+            #         r_balanced, r_height = check_height(root.right)
+
+            #         return (abs(l_height - r_height) < 2 if l_balanced and r_balanced else False), max(l_height, r_height) + 1
+            #     else:
+            #         return True, 0
+
+            # return check_height(root)[0]
+
+            def check_height(root):
+                if root:
+                    l_height = check_height(root.left)
+                    r_height = check_height(root.right)
+
+                    return -1 if l_height == -1 or r_height == -1 or abs(l_height - r_height) > 1 else max(l_height, r_height) + 1
+                else:
+                    return 0
             
-            if root.left:
-                l_height = self.get_height(root.left)
-            
-            if root.right:
-                r_height = self.get_height(root.right)
-            
-            return abs(l_height - r_height) <= 1
+            return check_height(root) != -1
         else:
             return True
-        
-    
-    def get_height(self, root):
-        if root:
-            return max(self.get_height(root.left), self.get_height(root.right)) + 1
-        else:
-            return 0
+
+
+sol = Solution()
+
+# n0 = TreeNode(3)
+# n1 = TreeNode(9)
+# n2 = TreeNode(20)
+# n3 = TreeNode(15)
+# n4 = TreeNode(7)
+
+# n0.left = n1
+# n0.right = n2
+# n2.left = n3
+# n2.right = n4
+
+n0 = TreeNode(1)
+n1 = TreeNode(2)
+n2 = TreeNode(2)
+n3 = TreeNode(3)
+n4 = TreeNode(3)
+n5 = TreeNode(4)
+n6 = TreeNode(4)
+
+n0.left = n1
+n0.right = n2
+n1.left = n3
+n2.right = n4
+n3.left = n5
+n4.right = n6
+
+print(sol.isBalanced(n0))
             

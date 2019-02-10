@@ -5,48 +5,56 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        row = len(matrix)
-        if row == 0:
+        if not matrix or len(matrix[0]) == 0:
             return False
 
-        col = len(matrix[0])
+        for row in matrix:
+            if target < row[0]:
+                return False
+            elif target > row[-1]:
+                continue
+            else:
+                left = 0
+                right = len(row) - 1
 
-        mid_row = row // 2
-        mid_col = col // 2
-        mid_val = matrix[mid_row][mid_col]
+                while left <= right:
+                    mid = (left + right) // 2
+                    
+                    if row[mid] < target:
+                        left = mid + 1
+                    elif row[mid] > target:
+                        right = mid - 1
+                    else:
+                        return True
 
-        if target == mid_val:
-            return True
-        elif target < mid_val:
-            new_matrix = []
-            for i in range(mid_row):
-                new_matrix.append(matrix[i][:mid_col])
-
-            return self.searchMatrix(new_matrix, target)
-        else:
-            new_matrix_upper = []
-            new_matrix_lower = []
-
-            for i in range(mid_row + 1):
-                new_matrix_upper.append(matrix[i][mid_col + 1:])
-            
-            for i in range(mid_row + 1, row):
-                new_matrix_lower.append(matrix[i][:])
-
-            return self.searchMatrix(new_matrix_upper, target) or self.searchMatrix(new_matrix_lower, target)
+        return False
 
 
+sol = Solution()
+# matrix = [
+#   [1,   4,  7, 11, 15],
+#   [2,   5,  8, 12, 19],
+#   [3,   6,  9, 16, 22],
+#   [10, 13, 14, 17, 24],
+#   [18, 21, 23, 26, 30]
+# ]
+# matrix = [[-1, 3]]
+# matrix = [[5], [6]]
 
-    
-    # def binarySearch(self, array, target):
-    #     if len(array) == 0:
-    #         return False
+# matrix = [
+#     [1,2,3,4,5],
+#     [6,7,8,9,10],
+#     [11,12,13,14,15],
+#     [16,17,18,19,20],
+#     [21,22,23,24,25]]
 
-    #     mid = len(array) // 2
+matrix = [
+    [3,3,8,13,13,18],
+    [4,5,11,13,18,20],
+    [9,9,14,15,23,23],
+    [13,18,22,22,25,27],
+    [18,22,23,28,30,33],
+    [21,25,28,30,35,35],
+    [24,25,33,36,37,40]]
 
-    #     if target == array[mid]:
-    #         return True
-    #     elif target < array[mid]:
-    #         return self.binarySearch(array[:mid], target)
-    #     else:
-    #         return self.binarySearch(array[mid + 1:], target)
+print(sol.searchMatrix(matrix, 21))

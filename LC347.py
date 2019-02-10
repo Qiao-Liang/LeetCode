@@ -1,3 +1,5 @@
+from heapq import heapify, nlargest
+
 class Solution(object):
     def topKFrequent(self, nums, k):
         """
@@ -5,39 +7,69 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        # Counter the frequency of each number
-        freq_dict = {}
-        heap = []
+        if not nums:
+            return []
+
+        dic = {}
+
         for num in nums:
-            if num in freq_dict:
-                freq_dict[num] += 1
+            if num in dic:
+                dic[num] += 1
             else:
-                heap.append(num)
-                freq_dict[num] = 1
+                dic[num] = 1
+
+        heap = [(val, key) for key, val in dic.items()]
+        heapify(heap)
+
+        return [tpl[1] for tpl in nlargest(k, heap)]
+
+        # return sorted(dic.keys(), key=lambda a: dic[a])[-k:]
+
+    # def topKFrequent(self, nums, k):
+    #     """
+    #     :type nums: List[int]
+    #     :type k: int
+    #     :rtype: List[int]
+    #     """
+    #     # Counter the frequency of each number
+    #     freq_dict = {}
+    #     heap = []
+    #     for num in nums:
+    #         if num in freq_dict:
+    #             freq_dict[num] += 1
+    #         else:
+    #             heap.append(num)
+    #             freq_dict[num] = 1
         
-        # Initiate a max heap
-        heap_size = len(heap)
-        for i in range(heap_size//2 - 1, -1, -1):
-            self.heapify(heap, freq_dict, heap_size, i)
+    #     # Initiate a max heap
+    #     heap_size = len(heap)
+    #     for i in range(heap_size//2 - 1, -1, -1):
+    #         self.heapify(heap, freq_dict, heap_size, i)
         
-        # Do heap sort and stop after k rounds
-        for i in range(heap_size - 1, heap_size - k - 1, -1):
-            heap[i], heap[0] = heap[0], heap[i]
-            self.heapify(heap, freq_dict, i, 0)
+    #     # Do heap sort and stop after k rounds
+    #     for i in range(heap_size - 1, heap_size - k - 1, -1):
+    #         heap[i], heap[0] = heap[0], heap[i]
+    #         self.heapify(heap, freq_dict, i, 0)
 
-        return heap[heap_size - k:][::-1]
+    #     return heap[heap_size - k:][::-1]
 
-    def heapify(self, heap, freq_dict, heap_size, idx):
-        max_idx = idx
-        lc_idx = 2 * idx + 1
-        rc_idx = 2 * idx + 2
+    # def heapify(self, heap, freq_dict, heap_size, idx):
+    #     max_idx = idx
+    #     lc_idx = 2 * idx + 1
+    #     rc_idx = 2 * idx + 2
 
-        if lc_idx < heap_size and freq_dict[heap[lc_idx]] > freq_dict[heap[idx]]:
-            max_idx = lc_idx
+    #     if lc_idx < heap_size and freq_dict[heap[lc_idx]] > freq_dict[heap[idx]]:
+    #         max_idx = lc_idx
 
-        if rc_idx < heap_size and freq_dict[heap[rc_idx]] > freq_dict[heap[max_idx]]:
-            max_idx = rc_idx
+    #     if rc_idx < heap_size and freq_dict[heap[rc_idx]] > freq_dict[heap[max_idx]]:
+    #         max_idx = rc_idx
         
-        if max_idx != idx:
-            heap[idx], heap[max_idx] = heap[max_idx], heap[idx]
-            self.heapify(heap, freq_dict, heap_size, max_idx)
+    #     if max_idx != idx:
+    #         heap[idx], heap[max_idx] = heap[max_idx], heap[idx]
+    #         self.heapify(heap, freq_dict, heap_size, max_idx)
+
+
+sol = Solution()
+# nums = [1,1,1,2,2,3]
+nums = [-1, -1]
+print(sol.topKFrequent(nums, 2))

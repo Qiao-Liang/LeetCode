@@ -16,7 +16,7 @@ class Solution(object):
             if n & 1:
                 temp = 1 + min(dfs(n + 1, rpl), dfs(n - 1, rpl))
             else:
-                temp = 1 + dfs(n / 2, rpl)
+                temp = 1 + dfs(n // 2, rpl)
 
             cache[n] = temp
             return temp
@@ -34,7 +34,7 @@ class Solution(object):
             res += 1
 
             if not n & 1:
-                n /= 2
+                n //= 2
             elif not n & 2 or n == 3:
                 n -= 1
             else:
@@ -44,4 +44,4 @@ class Solution(object):
 
 
 sol = Solution()
-print sol.integerReplacement2(99)
+print(sol.integerReplacement(99))

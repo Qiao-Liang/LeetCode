@@ -8,7 +8,7 @@ class Solution(object):
         must_not_have = '347'
         result = 0
         
-        for num in xrange(1, N + 1):
+        for num in range(1, N + 1):
             temp = 0
 
             for ch in str(num):
@@ -24,4 +24,4 @@ class Solution(object):
 
 
 sol = Solution()
-print sol.rotatedDigits(10)
+print(sol.rotatedDigits(10))

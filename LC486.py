@@ -12,16 +12,14 @@ class Solution(object):
         if length & 1 == 0:  # Player A always wins when the length of nums is even
             return True
         
-        dp = [0] * length
+        dp = nums[:]
 
         for i in range(length - 1, -1, -1):
-            for j in range(i, length):
-                if i == j:
-                    dp[i] = nums[i]
-                else:
-                    dp[j] = max(nums[i] - dp[j], nums[j] - dp[j - 1])
+            for j in range(i + 1, length):
+                dp[j] = max(nums[i] - dp[j], nums[j] - dp[j - 1])
         
         return dp[-1] >= 0
+
 
 sol = Solution()
 nums = [1, 5, 233, 7, 3]

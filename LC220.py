@@ -5,42 +5,34 @@ class Solution(object):
         :type k: int
         :rtype: bool
         """
-        if not nums:
+        if not nums or k == 0:
             return False
 
-        window = nums[:k + 1]
-        bound = len(nums)
-        left = 0
-        right = k + 1
+        
+        len_nums = len(nums)
 
-        while True:
+        def check_window(window):
             window.sort()
 
-            for idx in range(k):
-                if abs(window[idx] - window[idx + 1]) <= t:
+            for idx in range(1, len(window)):
+                if window[idx] - window[idx - 1] <= t:
                     return True
-
-            window.remove(nums[left])
-            left += 1
-            right += 1
-
-            if right < bound:
-                window.append(nums[right])
-            else:
-                break
-        
-        return False
-
-
-        # dup = {}
-        # for idx, num in enumerate(nums):
-        #     for diff in range(t):
-        #         temp = num + diff
-        #         if temp in dup and idx - dup[temp] <= k:
-        #             return True                
             
-        #     dup[num] = idx
-        # return False
+            return False
+
+        if k >= len_nums:
+            return check_window(nums)
+
+        srt = 0
+        len_window = k + 1
+
+        while srt + k < len_nums:
+            if check_window(nums[srt: srt + len_window]):
+                return True
+
+            srt += 1
+
+        return False
 
 
 sol = Solution()
@@ -48,7 +40,20 @@ nums = [1, 5, 9, 1, 5, 9]
 k = 1
 t = 2
 
-for idx in range(100):
-    print('*' * 60)
+# nums = [1,2,3,1]
+# k = 3
+# t = 0
 
-sol.containsNearbyAlmostDuplicate(nums, k, t)
+# nums = [1,0,1,1]
+# k = 1
+# t = 2
+
+# nums = [0]
+# k = 0
+# t = 0
+
+# nums = [2, 2]
+# k = 3
+# t = 0
+
+print(sol.containsNearbyAlmostDuplicate(nums, k, t))
