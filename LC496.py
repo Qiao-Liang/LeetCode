@@ -20,6 +20,25 @@ class Solution(object):
 
         return result
 
+    def nextGreaterElement2(self, findNums, nums):
+        res = []
+        dic = {}
+
+        for idx, n in enumerate(nums):
+            dic[n] = idx
+
+        for n in findNums:
+            temp = -1
+
+            for temp_n in nums[dic[n] + 1:]:
+                if temp_n > n:
+                    temp = temp_n
+                    break
+
+            res.append(temp)
+
+        return res
+
 
 sol = Solution()
 # findNums = [2, 4]

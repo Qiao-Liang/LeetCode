@@ -17,3 +17,20 @@ class Solution(object):
                 count += 1
 
         return count == 0
+
+
+        # stack = []
+        # node_list = preorder.split(',')
+        
+        # for node in node_list:
+        #     if len(stack) == 1 and stack[0] == '#':
+        #         return False
+
+        #     stack.append(node)
+            
+        #     while len(stack) > 2 and stack[-1] == stack[-2] == '#':
+        #         stack.pop()
+        #         stack.pop()
+        #         stack[-1] = '#'
+                
+        # return len(stack) == 1 and stack[0] == '#'

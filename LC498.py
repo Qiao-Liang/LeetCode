@@ -34,6 +34,47 @@ class Solution(object):
 
         return res
 
+        # if not matrix or not matrix[0]:
+        #     return []
+
+        # row = col = 0
+        # row_bound = len(matrix)
+        # col_bound = len(matrix[0])
+        # go_down = True
+        # res = [matrix[0][0]]
+
+        # while row < row_bound and col < col_bound:
+        #     if go_down:
+        #         if col < col_bound - 1:
+        #             col += 1
+        #         else:
+        #             row += 1
+
+        #         while row < row_bound and col > -1:
+        #             res.append(matrix[row][col])
+        #             row += 1
+        #             col -= 1
+
+        #         row -= 1
+        #         col += 1
+        #     else:
+        #         if row < row_bound - 1:
+        #             row += 1
+        #         else:
+        #             col += 1
+
+        #         while row > -1 and col < col_bound:
+        #             res.append(matrix[row][col])
+        #             row -= 1
+        #             col += 1
+
+        #         row += 1
+        #         col -= 1
+            
+        #     go_down = not go_down
+        
+        # return res
+
 
         # if not matrix or not matrix[0]:
         #     return []

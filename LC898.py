@@ -1,17 +1,17 @@
-class Solution:
+class Solution(object):
     def subarrayBitwiseORs(self, A):
         """
         :type A: List[int]
         :rtype: int
         """
-        res = set()
-        cur = {0}
+        res = cur = set()
 
         for n in A:
             cur = {n | c for c in cur} | {n}
             res |= cur
 
         return len(res)
+
 
         # len_A = len(A)
         # memo = [[None] * len_A for _ in range(len_A)]
@@ -31,7 +31,7 @@ class Solution:
 
 sol = Solution()
 # a = [1,1,2]
-# a = [1,2,4]
-a = [1, 11, 6, 11]
+a = [1,2,4]
+# a = [1, 11, 6, 11]
 print(sol.subarrayBitwiseORs(a))
         

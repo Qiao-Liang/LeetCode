@@ -5,14 +5,24 @@ class Solution(object):
         :type k: int
         :rtype: str
         """
-        if k == len(num):
-            return "0"
+        res_len = len(num) - k
 
-        res = num[:len(num) - k]
+        if res_len == 0:
+            return '0'
+        
+        stack = []
 
-        # return str(min(int(sorted(list(num[:k + 1]))[0] + num[k + 1:]), int(num[:-(k + 1)] + sorted(list(num[len(num) - k - 1:]))[0])))
+        for n in num:
+            while k > 0 and stack and stack[-1] > n:
+                stack.pop()
+                k -= 1
+
+            stack.append(n)
+
+        return ''.join(stack[:res_len]).lstrip('0') or '0'
 
 
 sol = Solution()
-print sol.removeKdigits("112", 1)
-        
+num = "1234567890"
+k = 9
+print(sol.removeKdigits(num, k))

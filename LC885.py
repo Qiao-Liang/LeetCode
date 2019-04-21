@@ -7,36 +7,65 @@ class Solution(object):
         :type c0: int
         :rtype: List[List[int]]
         """
-        visits = []
-        x, y = r0, c0
-        step = 0
-        count = r * c
+        count = 0
+        res = [[r0, c0]]
+        step = 1
+        total = R * C - 1
 
-        while len(visits) < count:
+        while count < total:
+            temp_c = c0 + step + 1
+
+            while True:
+                if c0 + 1 < temp_c:
+                    c0 += 1
+
+                    if -1 < r0 < R and -1 < c0 < C:
+                        count += 1
+                        res.append([r0, c0])
+                else:
+                    break
+
+            temp_r = r0 + step + 1
+
+            while True:
+                if r0 + 1 < temp_r:
+                    r0 += 1
+
+                    if -1 < r0 < R and -1 < c0 < C:
+                        count += 1
+                        res.append([r0, c0])
+                else:
+                    break
 
             step += 1
-            for j in range(y, y + step): # right: step
-                if 0 <= j < c and 0 <= x < r:
-                    visits.append([x, j])
-            y += step
+            temp_c = c0 - step - 1
 
-            for i in range(x, x + step): # down: step
-                if 0 <= i < r and 0 <= y < c:
-                    visits.append(([i, y]))
-            x += step
+            while True:
+                if c0 - 1 > temp_c:
+                    c0 -= 1
 
-            step += 1 # increase the step
-            for j in range(y, y - step, -1): # left: step + 1
-                if 0 <= j < c and 0 <= x < r:
-                    visits.append([x, j])
-            y -= step
+                    if -1 < r0 < R and -1 < c0 < C:
+                        count += 1
+                        res.append([r0, c0])
+                else:
+                    break
 
-            for i in range(x, x - step, -1): # up: step + 1
-                if 0 <= i < r and 0 <= y < c:
-                    visits.append(([i, y]))
-            x -= step
+            temp_r = r0 - step - 1
 
-        return visits
+            while True:
+                if r0 - 1 > temp_r:
+                    r0 -= 1
+
+                    if -1 < r0 < R and -1 < c0 < C:
+                        count += 1
+                        res.append([r0, c0])
+                else:
+                    break
+
+            step += 1
+
+        return res
+
 
         # row_low = 0
         # row_high = R - 1

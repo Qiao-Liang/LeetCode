@@ -29,6 +29,27 @@ class Solution(object):
 
         return head.right
 
+        # self.res = self.last = None
+        
+        # def dfs(node):
+        #     if not node:
+        #         return None
+            
+        #     dfs(node.left)
+            
+        #     if not self.res:
+        #         self.res = node
+                
+        #     if self.last:
+        #         self.last.right = node
+            
+        #     node.left = None
+        #     self.last = node
+        #     dfs(node.right)
+            
+        # dfs(root)
+        # return self.res
+
 
 node0 = TreeNode(1)
 node1 = TreeNode(2)
@@ -49,8 +70,11 @@ node1.left = node0
 node7.left = node6
 node7.right = node8
 
+# node0 = TreeNode(379)
+# node1 = TreeNode(826)
+# node0.left = node1
+
 sol = Solution()
 temp = sol.increasingBST(node4)
 
-print temp
-        
+print(temp)
