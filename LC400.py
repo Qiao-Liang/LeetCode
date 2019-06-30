@@ -4,24 +4,36 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        if n < 10:
-            return n
-
         digits = 1
-        base = counts = 9
-
-        while True:
+        step = 9
+        base = 90
+        
+        while n > step:
+            n -= step
             digits += 1
-            counts *= 10
-            next_base = base + counts * digits
+            step = digits * base
+            base *= 10
             
-            if base < n < next_base:
-                break
-            else:
-                base = next_base
+        return int(str(10 ** (digits - 1) + (n - 1) / digits)[(n - 1) % digits])
 
-        return int(str(pow(10, digits - 1) + (n - base - 1) / digits)[(n - base - 1) % digits])
+        # if n < 10:
+        #     return n
+
+        # digits = 1
+        # base = counts = 9
+
+        # while True:
+        #     digits += 1
+        #     counts *= 10
+        #     next_base = base + counts * digits
+            
+        #     if base < n < next_base:
+        #         break
+        #     else:
+        #         base = next_base
+
+        # return int(str(pow(10, digits - 1) + (n - base - 1) / digits)[(n - base - 1) % digits])
 
 
 sol = Solution()
-print sol.findNthDigit(1000)
+print(sol.findNthDigit(100))

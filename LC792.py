@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 class Solution(object):
     def numMatchingSubseq(self, S, words):
         """
@@ -5,30 +7,72 @@ class Solution(object):
         :type words: List[str]
         :rtype: int
         """
-        dic = {}
+        indices = defaultdict(list)
         res = 0
-
+        
         for idx, ch in enumerate(S):
-            if ch in dic:
-                dic[ch][1] = idx
-            else:
-                dic[ch] = [idx, idx]
-
+            indices[ch].append(idx)
+        
         for word in words:
-            is_sub = True
-            temp_idx = -1
+            is_sub = 1
+            min_idx = -1
             
             for ch in word:
-                if ch in dic and dic[ch][1] > temp_idx:
-                    temp_idx = max(dic[ch][0], temp_idx)
+                if ch in indices:
+                    l = 0
+                    temp_len = r = len(indices[ch])
+                    temp = indices[ch]
+
+                    while l < r:
+                        m = (l + r) // 2
+
+                        if temp[m] > min_idx:
+                            if temp[m - 1] > min_idx:
+                                r = m
+                            else:
+                                min_idx = temp[m]
+                                break
+                        else:
+                            l = m + 1
+                    
+                    if l == r:
+                        if -1 < l < temp_len and temp[l] > min_idx:
+                            min_idx = temp[l]
+                        else:
+                            is_sub = 0
+                            break
                 else:
-                    is_sub = False
+                    is_sub = 0
                     break
-
-            if is_sub:
-                res += 1
-
+        
+            res += is_sub
+        
         return res
+
+        # dic = {}
+        # res = 0
+
+        # for idx, ch in enumerate(S):
+        #     if ch in dic:
+        #         dic[ch][1] = idx
+        #     else:
+        #         dic[ch] = [idx, idx]
+
+        # for word in words:
+        #     is_sub = True
+        #     temp_idx = -1
+            
+        #     for ch in word:
+        #         if ch in dic and dic[ch][1] > temp_idx:
+        #             temp_idx = max(dic[ch][0], temp_idx)
+        #         else:
+        #             is_sub = False
+        #             break
+
+        #     if is_sub:
+        #         res += 1
+
+        # return res
 
 
         # def is_subseq(w, s):

@@ -11,28 +11,39 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        rob_dict = {}
-        not_rob_dict = {}
+        def recurse(node):
+            if not node:
+                return 0, 0
 
-        def recurse(root, can_rob, idx):
-            if not root:
-                return 0
+            l_notrobbed, l_robbed = recurse(node.left)
+            r_notrobbed, r_robbed = recurse(node.right)
+            notrobbed = l_robbed + r_robbed
+            return notrobbed, max(node.val + l_notrobbed + r_notrobbed, notrobbed)
 
-            left_idx = idx * 2 + 1
-            right_idx = left_idx + 1
+        return max(recurse(root))
 
-            if can_rob:
-                if idx not in rob_dict:
-                    rob_dict[idx] = max(recurse(root.left, False, left_idx) + recurse(root.right, False, right_idx) + root.val, recurse(root.left, True, left_idx) + recurse(root.right, True, right_idx))
+        # rob_dict = {}
+        # not_rob_dict = {}
 
-                return rob_dict[idx]
-            else:
-                if idx not in not_rob_dict:
-                    not_rob_dict[idx] = recurse(root.left, True, left_idx) + recurse(root.right, True, right_idx)
+        # def recurse(root, can_rob, idx):
+        #     if not root:
+        #         return 0
 
-                return not_rob_dict[idx]
+        #     left_idx = idx * 2 + 1
+        #     right_idx = left_idx + 1
 
-        return max(recurse(root, True, 0), recurse(root, False, 0))
+        #     if can_rob:
+        #         if idx not in rob_dict:
+        #             rob_dict[idx] = max(recurse(root.left, False, left_idx) + recurse(root.right, False, right_idx) + root.val, recurse(root.left, True, left_idx) + recurse(root.right, True, right_idx))
+
+        #         return rob_dict[idx]
+        #     else:
+        #         if idx not in not_rob_dict:
+        #             not_rob_dict[idx] = recurse(root.left, True, left_idx) + recurse(root.right, True, right_idx)
+
+        #         return not_rob_dict[idx]
+
+        # return max(recurse(root, True, 0), recurse(root, False, 0))
 
 
 node0 = TreeNode(3)

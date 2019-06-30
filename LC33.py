@@ -14,14 +14,14 @@ class Solution(object):
             if nums[mid] > target:
                 if target == nums[start]:
                     return start
-                elif nums[start] < target < nums[mid] or nums[mid] < nums[end]:
+                elif nums[start] < target or nums[mid] < nums[end]:
                     end = mid - 1
                 else:
                     start = mid + 1
             elif nums[mid] < target:
                 if target == nums[end]:
                     return end
-                elif nums[mid] < target < nums[end] or nums[start] < nums[mid]:
+                elif target < nums[end] or nums[start] < nums[mid]:
                     start = mid + 1
                 else:
                     end = mid - 1

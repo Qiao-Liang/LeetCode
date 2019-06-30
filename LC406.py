@@ -4,13 +4,20 @@ class Solution(object):
         :type people: List[List[int]]
         :rtype: List[List[int]]
         """
-        sorted_people = sorted(people, key=lambda x: (-x[0], x[1]))
         res = []
 
-        for people in sorted_people:
-            res.insert(people[1], people)
+        for p in sorted(people, key=lambda x: (-x[0], x[1])):
+            res.insert(p[1], p)
 
         return res
+
+        # sorted_people = sorted(people, key=lambda x: (-x[0], x[1]))
+        # res = []
+
+        # for people in sorted_people:
+        #     res.insert(people[1], people)
+
+        # return res
 
         # res = []
         # count = {}
@@ -86,4 +93,4 @@ class Solution(object):
 
 sol = Solution()
 people = [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
-print sol.reconstructQueue(people)
+print(sol.reconstructQueue(people))
