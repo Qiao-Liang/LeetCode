@@ -5,6 +5,67 @@ class Solution(object):
         :type T: int
         :rtype: int
         """
+        len_clips = len(clips)
+        clips.sort(key=lambda n: (n[0], n[1]))
+        dp = {}
+        si = 0
+        res = -1
+
+        while si < len_clips:
+            if clips[si][0] == 0:
+                dp[clips[si][1]] = 1
+
+                if clips[si][1] >= T:
+                    res = 1
+            else:
+                break
+
+            si += 1
+
+        for i, (s, e) in enumerate(clips[si:],start=si):
+            for ts, te in clips[:i]:
+                if ts <= s <= te and te in dp:
+                    dp[e] = min(dp[e], dp[te] + 1) if e in dp else dp[te] + 1
+
+            if e in dp and e >= T:
+                res = dp[e] if res == -1 else min(res, dp[e])
+        
+        return res
+
+    def videoStitching2(self, clips, T):
+        """
+        :type clips: List[List[int]]
+        :type T: int
+        :rtype: int
+        """
+        len_clips = len(clips)
+        clips.sort(key=lambda n: n[0])
+        curr_len = res = i = 0
+
+        while i < len_clips:
+            temp_len = float('-inf')
+
+            while i < len_clips and curr_len >= clips[i][0]:
+                temp_len = max(temp_len, clips[i][0])
+                i += 1
+
+            if temp_len == float('-inf'):
+                return -1
+            else:
+                curr_len = temp_len
+                res += 1
+
+                if curr_len >= T:
+                    return res
+
+        return -1
+
+    def videoStitching3(self, clips, T):
+        """
+        :type clips: List[List[int]]
+        :type T: int
+        :rtype: int
+        """
         clips.sort(key=lambda n: (n[0], n[1]))
         len_clips = len(clips)
         memo = [0] * (len_clips + 1)

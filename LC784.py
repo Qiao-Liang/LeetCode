@@ -12,13 +12,17 @@ class Solution(object):
         while bitmap < bound:
             temp = list(S)
             bit_mask = 1
-            map_idx = -1
+            # map_idx = -1
 
-            while bit_mask < bound:
-                ch_idx = idx_map[map_idx]
-                temp[ch_idx] = temp[ch_idx].upper() if bit_mask & bitmap else temp[ch_idx].lower()
+            # while bit_mask < bound:
+            #     ch_idx = idx_map[map_idx]
+            #     temp[ch_idx] = temp[ch_idx].upper() if bit_mask & bitmap else temp[ch_idx].lower()
+            #     bit_mask <<= 1
+            #     map_idx -= 1
+
+            for i in idx_map:
+                temp[i] = temp[i].upper() if bit_mask & bitmap else temp[i].lower()
                 bit_mask <<= 1
-                map_idx -= 1
             
             bitmap += 1
             res.append(''.join(temp))

@@ -6,26 +6,53 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def longestUnivaluePath(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        res = 0
+    def longestUnivaluePath(self, root: TreeNode) -> int:
+        self.res = 0
+        
+        def dfs(node):
+            if not node:
+                return (None, 0)
+            
+            lv, lc = dfs(node.left)
+            rv, rc = dfs(node.right)
+            temp = max_temp = 0
+            
+            if lv == node.val:
+                lc += 1
+                temp += lc
+                max_temp = max(max_temp, lc)
+                
+            if rv == node.val:
+                rc += 1
+                temp += rc
+                max_temp = max(max_temp, rc)
+            
+            self.res = max(self.res, temp)
+            return (node.val, max_temp)
+            
+        dfs(root)
+        return self.res
 
-        def dfs(node, length):
-            nonlocal res
+    # def longestUnivaluePath(self, root):
+    #     """
+    #     :type root: TreeNode
+    #     :rtype: int
+    #     """
+    #     res = 0
 
-            if node.left:
-                res = max(res, length)
-                dfs(node.left, length + 1 if node.val == node.left.val else 1)
+    #     def dfs(node, length):
+    #         nonlocal res
 
-            if node.right:
-                res = max(res, length)
-                dfs(node.right, length + 1 if node.val == node.right.val else 1)
+    #         if node.left:
+    #             res = max(res, length)
+    #             dfs(node.left, length + 1 if node.val == node.left.val else 1)
 
-        dfs(root, 1)
-        return res
+    #         if node.right:
+    #             res = max(res, length)
+    #             dfs(node.right, length + 1 if node.val == node.right.val else 1)
+
+    #     dfs(root, 1)
+    #     return res
 
 
 sol = Solution()

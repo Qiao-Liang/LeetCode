@@ -14,21 +14,39 @@ class Codec:
         :rtype: str
         """
         if not root:
-            return []
-
+            return ''
+        
+        stack = [root]
         res = []
-        queue = [root]
 
-        while queue:
-            node = queue.pop(0)
+        while stack:
+            node = stack.pop()
 
-            if not node:
-                res.append(None)
-                continue
+            if node:
+                res.append(str(node.val))
+                stack.append(node.left)
+                stack.append(node.right)
+            else:
+                res.append('null')
+        
+        return ','.join(res)
+
+        # if not root:
+        #     return []
+
+        # res = []
+        # queue = [root]
+
+        # while queue:
+        #     node = queue.pop(0)
+
+        #     if not node:
+        #         res.append(None)
+        #         continue
             
-            res.append(node.val)
-            queue.append(node.left)
-            queue.append(node.right)
+        #     res.append(node.val)
+        #     queue.append(node.left)
+        #     queue.append(node.right)
 
             # temp_queue = []
 
@@ -46,7 +64,7 @@ class Codec:
             # else:
             #     queue = None
         
-        return res
+        # return res
         
 
     def deserialize(self, data):
@@ -57,25 +75,48 @@ class Codec:
         """
         if not data:
             return None
+
+        vals = data[1:-1].split(',')
+        root = TreeNode(int(vals[0]))
+        stack = [(root, True)]
+
+        for val in vals[1:]:
+            node = None
+            prnt, status = stack.pop()
+
+            if val != 'null':
+                node = TreeNode(int(val))
+                stack.append((node, True))
+
+            if status:
+                prnt.left = node
+                stack.append((prnt, False))
+            else:
+                prnt.right = node
         
-        len_data = len(data)
+        return root
 
-        for idx, val in enumerate(data):
-            if val is not None:
-                data[idx] = TreeNode(val)
+        # if not data:
+        #     return None
+        
+        # len_data = len(data)
 
-        for idx, node in enumerate(data):
-            if node is not None:
-                left_idx = idx * 2 + 1
-                right_idx = idx * 2 + 2
+        # for idx, val in enumerate(data):
+        #     if val is not None:
+        #         data[idx] = TreeNode(val)
 
-                if left_idx < len_data:
-                    node.left = data[left_idx]
+        # for idx, node in enumerate(data):
+        #     if node is not None:
+        #         left_idx = idx * 2 + 1
+        #         right_idx = idx * 2 + 2
 
-                if right_idx < len_data:
-                    node.right = data[right_idx]
+        #         if left_idx < len_data:
+        #             node.left = data[left_idx]
 
-        return data[0]
+        #         if right_idx < len_data:
+        #             node.right = data[right_idx]
+
+        # return data[0]
 
             
             # temp = TreeNode(val)
@@ -101,7 +142,7 @@ class Codec:
 code = Codec()
 # arr = [1,2,3,None,None,4,5]
 # arr = [-1, 0, 1]
-arr = [5,2,3,None,None,2,4,3,1]
+arr = "[5,2,3,None,None,2,4,3,1]"
 head = code.deserialize(arr)
 
-print code.serialize(head)
+print(code.serialize(head))

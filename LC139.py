@@ -1,9 +1,18 @@
-"""
-Word Break
-"""
-
 class Solution(object):
-    def wordBreak(self, s, wordDict):
+    def wordBreak(self, s: str, wordDict) -> bool:
+        len_s = len(s)
+        dp = [False] * len_s
+        dp[0] = True
+        ws = set(wordDict)
+        
+        for l in range(len_s):
+            for r in range(l, len_s):
+                if s[l: r + 1] in ws and dp[l - 1]:
+                    dp[r] = True
+                    
+        return dp[-1]
+
+    def wordBreak2(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]

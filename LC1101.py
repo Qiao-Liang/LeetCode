@@ -6,7 +6,7 @@ class Solution(object):
         :rtype: int
         """
         groups = {i: i for i in range(N)}
-        remain = N - 1
+        remain = N
         logs.sort(key=lambda n: n[0])
 
         def find(i):
@@ -16,8 +16,7 @@ class Solution(object):
             return groups[i]
 
         def union(x, y):
-            tx = find(x)
-            ty = find(y)
+            tx, ty = find(x), find(y)
 
             if tx == ty:
                 return 0
@@ -28,7 +27,7 @@ class Solution(object):
         for t, p1, p2 in logs:
             remain -= union(p1, p2)
 
-            if remain == 0:
+            if remain == 1:
                 return t
         
         return -1
@@ -68,8 +67,8 @@ class Solution(object):
 
 
 sol = Solution()
-# logs = [[20190101,0,1],[20190104,3,4],[20190107,2,3],[20190211,1,5],[20190224,2,4],[20190301,0,3],[20190312,1,2],[20190322,4,5]]
-# N = 6
+logs = [[20190101,0,1],[20190104,3,4],[20190107,2,3],[20190211,1,5],[20190224,2,4],[20190301,0,3],[20190312,1,2],[20190322,4,5]]
+N = 6
 # logs = [[3,1,4],[2,0,4],[8,2,4],[0,0,2],[5,4,3],[4,1,2],[10,0,2],[6,1,0],[7,4,0],[1,1,2],[9,1,3]]
 # N = 5
 # logs = [[3,0,3],[4,1,2],[0,2,0],[2,0,2],[8,0,3],[1,0,1],[5,1,2],[7,3,1],[6,1,0],[9,3,0]]

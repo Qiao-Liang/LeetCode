@@ -39,6 +39,39 @@ class Solution(object):
         
         return res
 
+    def numIslands2(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        dis_set = {}
+        
+        def find(x):
+            if x != dis_set[x]:
+                dis_set[x] = find(dis_set[x])
+                
+            return dis_set[x]
+        
+        def union(x, y):
+            dis_set[find(x)] = dis_set[find(y)]
+            
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == '1':
+                    dis_set[r, c] = (r, c)
+                    
+                    for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                        nr = r + dr
+                        nc = c + dc
+                        
+                        if (nr, nc) in dis_set:
+                            union((r, c), (nr, nc))
+
+        for key in dis_set:
+            find(key)
+        
+        return len(set(dis_set.values()))
+
 
 sol = Solution()
 grid = [
@@ -47,4 +80,4 @@ grid = [
     ['0','0','1','0','0'],
     ['0','0','0','1','1']
 ]
-print sol.numIslands(grid)
+print(sol.numIslands(grid))

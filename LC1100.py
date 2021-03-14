@@ -21,7 +21,6 @@ class Solution(object):
 
         return res
 
-        
         # while idx < bound:
         #     temp_idx = idx
 
