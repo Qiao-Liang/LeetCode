@@ -1,22 +1,19 @@
-class Solution(object):
-    def checkPossibility(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        last = curr_max = -float('inf')
-        desc_found = False
-
-        for num in nums:
-            if num < curr_max:
-                if desc_found and num < last:
+class Solution:
+    def checkPossibility(self, nums: List[int]) -> bool:
+        c = 0
+        
+        for i in range(1, len(nums)):
+            if nums[i] < nums[i - 1]:
+                if c == 1:
                     return False
+                
+                c += 1
+                
+                if i < 2 or nums[i - 2] <= nums[i]:
+                    nums[i - 1] = nums[i]
                 else:
-                    desc_found = True
-            
-            last = num
-            curr_max = max(num, curr_max)
-
+                    nums[i] = nums[i - 1]
+                
         return True
 
 
